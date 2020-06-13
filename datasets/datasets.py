@@ -6,7 +6,7 @@ import numpy as np
 
 class Sines(Dataset):
 
-    def __init__(self, frequency_range: Sequence[float, float], amplitude_range: Sequence[float, float],
+    def __init__(self, frequency_range: Sequence[float], amplitude_range: Sequence[float],
                  n_series: int = 200, datapoints: int = 400, seed: int = None):
         """
         Pytorch Dataset to produce sines.
