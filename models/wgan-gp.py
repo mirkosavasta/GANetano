@@ -3,13 +3,11 @@ from torch.nn.utils import spectral_norm
 
 
 class AddDimension(nn.Module):
-
     def forward(self, x):
         return x.unsqueeze(1)
 
 
 class SqueezeDimension(nn.Module):
-
     def forward(self, x):
         return x.squeeze(1)
 
@@ -71,7 +69,7 @@ class Generator(nn.Module):
 
 class Critic(nn.Module):
     def __init__(self):
-        super(Critic, self).__init__()
+        super().__init__()
         self.main = create_critic_architecture()
 
     def forward(self, input):
