@@ -9,13 +9,15 @@ class Sines(Dataset):
     def __init__(self, frequency_range: Sequence[float, float], amplitude_range: Sequence[float, float],
                  n_series: int = 200, datapoints: int = 400, seed: int = None):
         """
-        Pytorch Dataset to produce sines
+        Pytorch Dataset to produce sines.
 
-        :param frequency_range:
-        :param amplitude_range:
-        :param n_series:
-        :param datapoints:
-        :param seed:
+        y = A * sin(B * x)
+
+        :param frequency_range: range of A
+        :param amplitude_range: range of B
+        :param n_series: number of sines in your dataset
+        :param datapoints: length of each sample
+        :param seed: random seed
         """
         self.n_series = n_series
         self.datapoints = datapoints
