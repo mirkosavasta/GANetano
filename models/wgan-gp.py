@@ -40,6 +40,7 @@ def create_critic_architecture():
                          spectral_norm(nn.Conv1d(1, 32, 3, padding=1), n_power_iterations=10),
                          nn.LeakyReLU(0.2, inplace=True),
                          nn.MaxPool1d(2),
+                         
                          spectral_norm(nn.Conv1d(32, 32, 3, padding=1), n_power_iterations=10),
                          nn.LeakyReLU(0.2, inplace=True),
                          nn.MaxPool1d(2),
