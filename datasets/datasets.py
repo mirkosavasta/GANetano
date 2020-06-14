@@ -2,6 +2,7 @@ from typing import Sequence
 
 from torch.utils.data import Dataset
 import numpy as np
+import statsmodels.tsa.api as smt
 
 
 class Sines(Dataset):
@@ -44,3 +45,41 @@ class Sines(Dataset):
         ampl_vector = (up_amp - low_amp) * np.random.rand(self.n_series, 1) + low_amp
 
         return ampl_vector * np.sin(freq_vector * x)
+
+
+class ARMA(Dataset):
+
+    def __init__(self, p: Sequence[float], q: Sequence[float], seed: int = None,
+                 n_series: int = 200, datapoints: int = 100):
+
+        self.p = p
+        self.q = q
+        self.n_series = n_series
+        self.datapoints = datapoints
+        self.seed = seed
+        self.dataset = self._generate_ARMA()
+
+    def __len__(self):
+        return self.datapoints
+
+    def __getitem__(self, idx):
+        return self.dataset[idx]
+
+    def _generate_ARMA(self):
+
+        if self.seed is not None:
+            np.random.seed(self.seed)
+
+        ar = np.array(self.p)
+        ma = np.array(self.q)
+        ar = np.r_[1, -ar]
+        ma = np.r_[1, ma]
+        burn = int(self.datapoints / 10)
+
+        dataset = []
+
+        for i in range(self.n_series):
+            arma = smt.arma_generate_sample(ar=ar, ma=ma, nsample=self.datapoints, burnin=burn)
+            dataset.append(arma)
+
+        return np.array(dataset)
