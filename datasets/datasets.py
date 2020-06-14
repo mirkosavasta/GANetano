@@ -51,7 +51,17 @@ class ARMA(Dataset):
 
     def __init__(self, p: Sequence[float], q: Sequence[float], seed: int = None,
                  n_series: int = 200, datapoints: int = 100):
+        """
+        Pytorch Dataset to sample a given ARMA process.
+        
+        y = ARMA(p,q)
 
+        :param p: AR parameters
+        :param q: MA parameters
+        :param seed: random seed
+        :param n_series: number of ARMA samples in your dataset
+        :param datapoints: length of each sample
+        """
         self.p = p
         self.q = q
         self.n_series = n_series
