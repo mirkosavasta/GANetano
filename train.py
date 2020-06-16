@@ -11,7 +11,7 @@ from torch.utils.tensorboard import writer, SummaryWriter
 from torch.utils.data import DataLoader
 from math import pi
 
-from datasets.datasets import Sines
+from datasets.datasets import Sines, ARMA
 from models.wgangp import Generator, Critic
 
 
@@ -19,7 +19,7 @@ class Trainer:
     NOISE_LENGTH = 50
 
     def __init__(self, generator, critic, gen_optimizer, critic_optimizer,
-                 gp_weight=10, critic_iterations=2, print_every=200, use_cuda=False, checkpoint_frequency=200):
+                 gp_weight=10, critic_iterations=5, print_every=200, use_cuda=False, checkpoint_frequency=200):
         self.g = generator
         self.g_opt = gen_optimizer
         self.c = critic
@@ -213,13 +213,14 @@ if __name__ == '__main__':
     # Instantiate Generator and Critic + initialize weights
     g = Generator()
 
-    g_opt = torch.optim.RMSprop(g.parameters(), lr=0.0005)
+    g_opt = torch.optim.RMSprop(g.parameters(), lr=0.00005)
     d = Critic()
 
-    d_opt = torch.optim.RMSprop(d.parameters(), lr=0.0005)
+    d_opt = torch.optim.RMSprop(d.parameters(), lr=0.00005)
 
     # Create Dataloader
-    dataset = Sines(frequency_range=[0, 2 * pi], amplitude_range=[0, 2 * pi], seed=42, n_series=200)
+    # dataset = Sines(frequency_range=[0, 2 * pi], amplitude_range=[0, 2 * pi], seed=42, n_series=200)
+    dataset = ARMA((0.7), (0.2))
     dataloader = DataLoader(dataset, batch_size=args.batches)
 
     # Instantiate Trainer
