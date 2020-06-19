@@ -1,7 +1,6 @@
 import argparse
 import os
 
-
 import torch
 from tqdm import tqdm
 from torch.autograd import Variable
@@ -199,6 +198,8 @@ class Trainer:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='GANetano', usage='%(prog)s [options]')
+    parser.add_argument('-ds', '--dataset', type=str, dest='dataset', default='sines',
+                        help='choose between sines and arma')
     parser.add_argument('-ln', '--logname', type=str, dest='log_name', default=None, required=True,
                         help='tensorboard filename')
     parser.add_argument('-e', '--epochs', type=int, dest='epochs', default=15000, help='number of training epochs')
@@ -206,7 +207,6 @@ if __name__ == '__main__':
                         help='number of batches per training iteration')
     parser.add_argument('-cp', '--checkpoint', type=str, dest='checkpoint', default=None,
                         help='checkpoint to use for a warm start')
-
 
     args = parser.parse_args()
 
@@ -219,8 +219,11 @@ if __name__ == '__main__':
     d_opt = torch.optim.RMSprop(d.parameters(), lr=0.00005)
 
     # Create Dataloader
-    # dataset = Sines(frequency_range=[0, 2 * pi], amplitude_range=[0, 2 * pi], seed=42, n_series=200)
-    dataset = ARMA((0.7), (0.2))
+    if args.dataset == 'sines':
+        dataset = Sines(frequency_range=[0, 2 * pi], amplitude_range=[0, 2 * pi], seed=42, n_series=200)
+    else:
+        dataset = ARMA((0.7, ), (0.2, ))
+
     dataloader = DataLoader(dataset, batch_size=args.batches)
 
     # Instantiate Trainer
