@@ -14,10 +14,10 @@ cd GANetano
 conda env create -f ganetano_env_reqs.yml
 ```
 ### Training
-- Train a model on sines:
+- Train model on sines:
 ```bash
-python3 train.py -ln tensorboard_los_name -ds sines
+python3 train.py -ln tensorboard_log_name -ds sines
 ```
-- Train a model on arma:
+- Train model on arma:
 ```bash
-python3 train.py -ln tensorboard_los_name -ds arma
+python3 train.py -ln tensorboard_log_name -ds arma
