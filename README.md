@@ -1,5 +1,5 @@
 # GANetano
-Generative Adversarial Network to create synthetic time series
+Generative Adversarial Network to create synthetic time series. This repo refers to a a [Medium Article](https://medium.com/@savastamirko/generating-synthetic-financial-time-series-with-wgans-e03596eb7185) that you should read if you intend to use my code.
 
 ## Getting Started
 
