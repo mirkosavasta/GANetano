@@ -28,7 +28,7 @@ class Sines(Dataset):
         self.dataset = self._generate_sines()
 
     def __len__(self):
-        return self.datapoints
+        return self.n_series
 
     def __getitem__(self, idx):
         return self.dataset[idx]
@@ -70,7 +70,7 @@ class ARMA(Dataset):
         self.dataset = self._generate_ARMA()
 
     def __len__(self):
-        return self.datapoints
+        return self.n_series
 
     def __getitem__(self, idx):
         return self.dataset[idx]
