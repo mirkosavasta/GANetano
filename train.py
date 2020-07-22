@@ -137,9 +137,11 @@ class Trainer:
             self.g_opt.load_state_dict(state_dicts['g_opt_state_dict'])
             self.c_opt.load_state_dict(state_dicts['d_opt_state_dict'])
 
+        # Define noise_shape
+        noise_shape = (1, self.NOISE_LENGTH)
+
         if plot_training_samples:
             # Fix latents to see how series generation improves during training
-            noise_shape = (1, self.NOISE_LENGTH)
             fixed_latents = Variable(self.sample_latent(noise_shape))
             if self.use_cuda:
                 fixed_latents = fixed_latents.cuda()
